@@ -77,3 +77,78 @@ curl -X POST http://localhost:PORT/user/register \
   "password": "password123"
 }'
 ```
+
+---
+
+## Endpoint: `/user/login`
+
+### Description
+This endpoint is used to authenticate a user and provide a JWT token.
+
+### Method
+`POST`
+
+### Request Body
+The request body must be in JSON format and include the following fields:
+
+| Field     | Type   | Required | Description                                   |
+|-----------|--------|----------|-----------------------------------------------|
+| `email`   | String | Yes      | The email address of the user (must be valid). |
+| `password`| String | Yes      | The password for the user (minimum 6 characters). |
+
+### Validation Rules
+- `email` must be a valid email address.
+- `password` must be at least 6 characters long.
+
+### Response
+
+#### Success (200 OK)
+- **Description**: User successfully authenticated.
+- **Body**:
+  ```json
+  {
+    "token": "string",
+    "user": {
+      "_id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string"
+    }
+  }
+  ```
+
+#### Error (400 Bad Request)
+- **Description**: Validation errors or missing required fields.
+- **Body**:
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "string",
+        "param": "string",
+        "location": "string"
+      }
+    ]
+  }
+  ```
+
+#### Error (401 Unauthorized)
+- **Description**: Invalid email or password.
+- **Body**:
+  ```json
+  {
+    "error": "Invalid email or password"
+  }
+  ```
+
+### Example Request
+```bash
+curl -X POST http://localhost:PORT/user/login \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}'
+```

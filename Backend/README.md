@@ -152,3 +152,80 @@ curl -X POST http://localhost:PORT/user/login \
   "password": "password123"
 }'
 ```
+
+---
+
+## Endpoint: `/user/profile`
+
+### Description
+This endpoint is used to retrieve the profile of the authenticated user.
+
+### Method
+`GET`
+
+### Headers
+| Header          | Type   | Required | Description                  |
+|------------------|--------|----------|------------------------------|
+| `Authorization` | String | Yes      | Bearer token for authentication. |
+
+### Response
+
+#### Success (200 OK)
+- **Description**: User profile retrieved successfully.
+- **Body**:
+  ```json
+  {
+    "user": {
+      "_id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string"
+    }
+  }
+  ```
+
+#### Error (401 Unauthorized)
+- **Description**: Missing or invalid token.
+- **Body**:
+  ```json
+  {
+    "error": "Unauthorized"
+  }
+  ```
+
+---
+
+## Endpoint: `/user/logout`
+
+### Description
+This endpoint is used to log out the authenticated user.
+
+### Method
+`GET`
+
+### Headers
+| Header          | Type   | Required | Description                  |
+|------------------|--------|----------|------------------------------|
+| `Authorization` | String | Yes      | Bearer token for authentication. |
+
+### Response
+
+#### Success (200 OK)
+- **Description**: User successfully logged out.
+- **Body**:
+  ```json
+  {
+    "message": "User logged out successfully"
+  }
+  ```
+
+#### Error (401 Unauthorized)
+- **Description**: Missing or invalid token.
+- **Body**:
+  ```json
+  {
+    "error": "Unauthorized"
+  }
+  ```

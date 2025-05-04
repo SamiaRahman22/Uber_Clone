@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         select: false,
     },
-    socketId: {   //livetracking
+    socketId: {
         type: String,
     },
 })

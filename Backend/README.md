@@ -234,7 +234,7 @@ This endpoint is used to log out the authenticated user.
 
 ## Captain Routes
 
-### Endpoint: `/captain/register`
+### Endpoint: `/captains/register`
 
 #### Description
 This endpoint is used to register a new captain in the system.
@@ -245,16 +245,22 @@ This endpoint is used to register a new captain in the system.
 #### Request Body
 The request body must be in JSON format and include the following fields:
 
-| Field                     | Type   | Required | Description                                        |
-|---------------------------|--------|----------|--------------------------------------------------|
-| `fullname.firstname`      | String | Yes      | The first name of the captain (minimum 3 characters). |
-| `fullname.lastname`       | String | No       | The last name of the captain (minimum 3 characters).  |
-| `email`                   | String | Yes      | The email address of the captain (must be valid).     |
-| `password`                | String | Yes      | The password for the captain (minimum 6 characters).  |
-| `vehicle.color`           | String | Yes      | The color of the vehicle (minimum 3 characters).      |
-| `vehicle.plate`           | String | Yes      | The license plate of the vehicle (minimum 3 characters). |
-| `vehicle.capacity`        | Number | Yes      | The capacity of the vehicle (minimum 1).              |
-| `vehicle.vehicleType`     | String | Yes      | The type of the vehicle (`car`, `motorcycle`, or `auto`). |
+```json
+{
+  "fullname": {
+    "firstname": "string (min 3 characters)",
+    "lastname": "string (optional, min 3 characters)"
+  },
+  "email": "string (valid email)",
+  "password": "string (min 6 characters)",
+  "vehicle": {
+    "color": "string (min 3 characters)",
+    "plate": "string (min 3 characters)",
+    "capacity": "number (min 1)",
+    "vehicleType": "string (one of 'car', 'motorcycle', 'auto')"
+  }
+}
+```
 
 #### Validation Rules
 - `email` must be a valid email address.
@@ -309,7 +315,7 @@ The request body must be in JSON format and include the following fields:
 
 ### Example Request
 ```bash
-curl -X POST http://localhost:PORT/captain/register \
+curl -X POST http://localhost:PORT/captains/register \
 -H "Content-Type: application/json" \
 -d '{
   "fullname": {

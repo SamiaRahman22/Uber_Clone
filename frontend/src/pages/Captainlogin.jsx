@@ -19,7 +19,7 @@ const Captainlogin = () => {
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>
     <div>
-    <img className='w-16 mb-10' src = 'https://www.svgrepo.com/show/505031/uber-driver.svg' alt='Uber Logo'/>
+    <img className='w-20 mb-2' src = 'https://www.svgrepo.com/show/505031/uber-driver.svg' alt='Uber Logo'/>
     <form onSubmit={(e)=>{submitHandler(e)}}>
     <h3 className='text-lg font-medium mb-2'>What's your email</h3>
     <input 
@@ -47,7 +47,7 @@ const Captainlogin = () => {
     className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
       Login
     </button>
-    <p className='text-center'>Join a fleet? <Link to='/signup'className='text-purple-600'>Register as a Captain</Link></p>
+    <p className='text-center'>Join a fleet? <Link to='/captain-signup'className='text-purple-600'>Register as a Captain</Link></p>
     </form>
     </div>
     <div>

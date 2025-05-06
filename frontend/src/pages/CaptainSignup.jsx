@@ -12,7 +12,7 @@ const CaptainSignup = () => {
     const submitHandler = (e)=>{
       e.preventDefault();
       setUserData({
-        username:
+        fullName:
         { 
           firstName: firstName,
           lastName: lastName
@@ -30,7 +30,7 @@ const CaptainSignup = () => {
     <div>
     <img className='w-20 mb-2' src = 'https://www.svgrepo.com/show/505031/uber-driver.svg' alt='Uber Logo'/>
     <form onSubmit={(e)=>{submitHandler(e)}}>
-      <h3 className='text-lg font-medium mb-2'>Enter Your name</h3>
+      <h3 className='text-lg w-full font-medium mb-2'>Enter Your name</h3>
       <div className='flex gap-4 mb-6'>
         <input 
           required 

@@ -9,7 +9,7 @@ const FinishRide = (props) => {
         }} className='p-1 text-center w-[93%] absolute top-0 '><i className="text-3xl text-gray-400 ri-arrow-down-wide-line"></i></h5>
         <h3 className='font-semibold text-2xl mb-5'> Finish this Ride. </h3>
 
-        <div className='flex items-center justify-between p-4 border-2 border-yellow-400 rounded-lg mt-4'>
+        <div className='flex items-center justify-between p-4 border-2 border-[#DDEB9D] rounded-lg mt-4'>
                 <div className='flex items-center gap-3 '>
                     <img className='h-12 rounded-full object-cover w-12' src="https://i.pinimg.com/236x/af/26/28/af26280b0ca305be47df0b799ed1b12b.jpg" alt="" />
                     <h2 className='text-lg font-medium'>Sam</h2>

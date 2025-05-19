@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { UserDataContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Logo from '../assets/LogoHeader.png'
 
 const UserLogin = () => {
   const [email, setEmail] = useState('')
@@ -38,7 +39,7 @@ const UserLogin = () => {
   return (
     <div className='bg-[#FFFDF6] p-7 h-screen flex flex-col justify-between'>
       <div>
-      <img className='w-16 mb-10' src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/2560px-Uber_logo_2018.svg.png' alt='Uber Logo'/>
+      <img className='w-25 h-20 mb-8' src = {Logo} alt='Uber Logo'/>
       <form onSubmit={(e)=>{submitHandler(e)}}>
       <h3 className='text-lg font-medium mb-2'>What's your email</h3>
       <input 

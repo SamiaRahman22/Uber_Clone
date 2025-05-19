@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import { CaptainDataContext } from '../context/CaptainContext'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios' 
+import Logo from './assets/Logo.png'
 
 const CaptainSignup = () => {
   
@@ -58,9 +59,9 @@ const CaptainSignup = () => {
 
     }
   return (
-    <div className='p-5 px-5 h-screen flex flex-col justify-between'>
+    <div className='bg-[#FFFDF6] p-5 px-5 h-screen flex flex-col justify-between'>
     <div>
-    <img className='w-20 mb-2' src = 'https://www.svgrepo.com/show/505031/uber-driver.svg' alt='Uber Logo'/>
+    <img className='w-20 mb-2' src = {Logo} alt='Uber Logo'/>
     <form onSubmit={(e)=>{submitHandler(e)}}>
       <h3 className='text-lg w-full font-medium mb-2'>Enter Your name</h3>
       <div className='flex gap-4 mb-6'>
@@ -153,7 +154,7 @@ const CaptainSignup = () => {
           </div>
 
     <button 
-    className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
+    className='bg-[#A0C878] text-black font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
       Create Account
     </button>
     <p className='text-center'>Already have an account? <Link to='/captain-login'className='text-purple-600'>Login here</Link></p>

@@ -34,8 +34,9 @@ const UserLogin = () => {
     setPassword('')
   }
   
+  
   return (
-    <div className='p-7 h-screen flex flex-col justify-between'>
+    <div className='bg-[#FFFDF6] p-7 h-screen flex flex-col justify-between'>
       <div>
       <img className='w-16 mb-10' src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/2560px-Uber_logo_2018.svg.png' alt='Uber Logo'/>
       <form onSubmit={(e)=>{submitHandler(e)}}>
@@ -45,7 +46,7 @@ const UserLogin = () => {
       value={email}
       onChange={(e) => 
       setEmail(e.target.value)}
-      className='bg-[#eeee] mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base'
+      className='bg-white mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base'
       type="email" 
       placeholder='email@example.com' 
       />
@@ -57,20 +58,20 @@ const UserLogin = () => {
       value={password}
       onChange={(e) => 
       setPassword(e.target.value)}
-      className='bg-[#eeee] mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base' 
+      className='bg-white mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base' 
       type="password" 
       placeholder='password'
       />
       <button 
-      className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
+      className='bg-[#092278] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
         Login
       </button>
-      <p className='text-center'>New Here? <Link to='/signup'className='text-purple-600'>Create New Account</Link></p>
+      <p className='text-center'>New Here? <Link to='/signup'className='text-[#092278]'>Create New Account</Link></p>
       </form>
       </div>
       <div>
       <Link to='/captain-login'
-       className='bg-[#4295f5] flex items-center justify-center text-white font-semibold mb-5 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
+       className='bg-[#927550] flex items-center justify-center text-[#F8F3D9] font-semibold mb-5 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
         Sign in as Captain
         </Link>
 

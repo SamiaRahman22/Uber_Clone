@@ -44,7 +44,7 @@ const UserSignup = () => {
     setLastName('')
   }
   return (
-    <div className='p-7 h-screen flex flex-col justify-between'>
+    <div className='bg-[#FFFDF6] p-7 h-screen flex flex-col justify-between'>
     <div>
     <img className='w-16 mb-10' src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/2560px-Uber_logo_2018.svg.png' alt='Uber Logo'/>
     <form onSubmit={(e)=>{submitHandler(e)}}>
@@ -52,7 +52,7 @@ const UserSignup = () => {
       <div className='flex gap-4 mb-6'>
         <input 
           required 
-          className='bg-[#eeee] w-50% rounded px-4 py-2 border w-full text-lg placeholder:text-base'
+          className='bg-[#FAF6E9] w-50% rounded px-4 py-2 border w-full text-lg placeholder:text-base'
           type="text" 
           placeholder='First name' 
           value={firstName}
@@ -60,7 +60,7 @@ const UserSignup = () => {
         />
         <input 
           required 
-          className='bg-[#eeee] w-50% rounded px-4 py-2 border w-full text-lg placeholder:text-base'
+          className='bg-[#FAF6E9] w-50% rounded px-4 py-2 border w-full text-lg placeholder:text-base'
           type="text" 
           placeholder='Last name' 
           value={lastName}
@@ -70,7 +70,7 @@ const UserSignup = () => {
     <h3 className='text-lg font-medium mb-2'>What's your email</h3>
     <input 
     required 
-    className='bg-[#eeee] mb-6 rounded px-4 py-2 border w-full text-lg placeholder:text-base'
+    className='bg-[#FAF6E9] mb-6 rounded px-4 py-2 border w-full text-lg placeholder:text-base'
     type="email" 
     placeholder='email@example.com' 
     value={email}
@@ -81,14 +81,14 @@ const UserSignup = () => {
 
     <input 
     required
-    className='bg-[#eeee] mb-6 rounded px-4 py-2 border w-full text-lg placeholder:text-base' 
+    className='bg-[#FAF6E9] mb-6 rounded px-4 py-2 border w-full text-lg placeholder:text-base' 
     type="password" 
     placeholder='password'
     value={password}
     onChange={(e) => setPassword(e.target.value)}
     />
     <button 
-    className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
+    className='bg-[#092278] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >
       Create Account
     </button>
     <p className='text-center'>Already have an account? <Link to='/login'className='text-purple-600'>Login here</Link></p>

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import axios from 'axios'
 import 'remixicon/fonts/remixicon.css'
 import Logo from '../assets/LogoHeader.png'
 import LocationSearchPanel from '../components/LocationSearchPanel'
@@ -17,6 +18,9 @@ const Home = () => {
   const [confirmRidePanel, setconfirmRidePanel] = useState(false)
   const [vehicleFound, setvehicleFound] = useState(false)
   const [waitingForDriver, setwaitingForDriver] = useState(false)
+  const [suggestions, setSuggestions] = useState([])
+  const [activeField, setActiveField] = useState(null)
+
   const panelRef = useRef(null)
   const vehiclePanelRef = useRef(null)
   const vehicleFoundRef = useRef(null)
@@ -28,28 +32,56 @@ const Home = () => {
     e.preventDefault()
   } 
 
-  useGSAP (function(){
-    if (panelOpen){
+  const fetchSuggestions = async (query) => {
+    if (!query) {
+      setSuggestions([])
+      return
+    }
+    try {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`, {
+                params: { input: e.target.value },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+
+            })
+            setSuggestions(response.data)
+        } catch {
+            // handle error
+        }
+  }
+
+  const handleSuggestionClick = (suggestion) => {
+    if (activeField === 'pickup') {
+      setPickup(suggestion)
+    } else if (activeField === 'destination') {
+      setDestination(suggestion)
+    }
+    setSuggestions([])
+    setPanelOpen(false)
+  }
+
+  useGSAP(function () {
+    if (panelOpen) {
       gsap.to(panelRef.current, {
-        height : '70%',
+        height: '70%',
         padding: 24
       })
       gsap.to(panelCloseRef.current, {
-        opacity:1
+        opacity: 1
       })
-    }
-    else {
+    } else {
       gsap.to(panelRef.current, {
-        height : '0%',
-        padding : 0
+        height: '0%',
+        padding: 0
       })
       gsap.to(panelCloseRef.current, {
-        opacity:0
+        opacity: 0
       })
     }
   }, [panelOpen])
 
-  useGSAP (function (){
+  useGSAP(function () {
     if(vehiclePanel){
       gsap.to(vehiclePanelRef.current, {
         transform: 'translateY(0)'
@@ -62,7 +94,7 @@ const Home = () => {
     }
   }, [vehiclePanel])
 
-  useGSAP (function (){
+  useGSAP(function () {
     if(confirmRidePanel){
       gsap.to(confirmRidePanelRef.current, {
         transform: 'translateY(0)'
@@ -75,7 +107,7 @@ const Home = () => {
     }
   }, [confirmRidePanel])
 
-   useGSAP (function (){
+  useGSAP(function () {
     if(vehicleFound){
       gsap.to(vehicleFoundRef.current, {
         transform: 'translateY(0)'
@@ -88,7 +120,7 @@ const Home = () => {
     }
   }, [vehicleFound])
 
-  useGSAP (function (){
+  useGSAP(function () {
     if(waitingForDriver){
       gsap.to(waitingForDriverRef.current, {
         transform: 'translateY(0)'
@@ -107,54 +139,66 @@ const Home = () => {
       
       <div className='h-screen w-screen'>
         {/*image for temporary use*/}
-          <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
+        <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
       </div>
-      <div  className='flex flex-col justify-end h-screen absolute top-0 w-full'>
-      <div className='h-[30%] p-6 bg-[#FFFDF6] relative'>
-        {/* <img className='w-30 h-20 absolute opcaity-0 left-3 top-4' src={Logo} alt="" />*/}
-        <h5 ref={panelCloseRef} onClick={() => {
-          setPanelOpen(false)
-        }} className='absolute opcaity-0 right-6 top-6 text-2xl'>
-        <i className="ri-arrow-down-wide-line"></i>
-        </h5>
-        <h4 className='text-[#504B38] text-2xl font-semibold'>Find a Trip!</h4>
-        <form onSubmit={(e) => {
-          submitHandler(e)
-        }}>
-          <div className="line absolute h-16 w-1 top-[45%] left-10 bg-gray-900 rounded-full"></div>
-          <input 
-          onClick={() => {
-            setPanelOpen(true)
-          }}
-          value={pickup}
-          onChange={(e)=> {
-            setPickup(e.target.value)
-          }}
-          className='bg-white border borderColor-[#504B38] px-12 py-2 text-lg rounded-lg w-full mt-5' 
-          type="text"  
-          placeholder='Add a pickup Location.'/>
-          <input
-          onClick={() => {
-            setPanelOpen(true)
-          }}
-          value={destination}
-          onChange={(e)=> {
-            setDestination(e.target.value)
-          }}
-          className='bg-white border  px-12 py-2 text-lg rounded-lg w-full mt-3' 
-          type="text"  
-          placeholder='Enter your destination.'/>
-        </form>
-      </div>
-      <div ref={panelRef} className='bg-[#FFFDF6] h-0'>
-          < LocationSearchPanel setPanelOpen={setPanelOpen} setvehiclePanel={setvehiclePanel} />
-      </div>
+      <div className='flex flex-col justify-end h-screen absolute top-0 w-full'>
+        <div className='h-[30%] p-6 bg-[#FFFDF6] relative'>
+          <h5 
+            ref={panelCloseRef} 
+            onClick={() => {
+              setPanelOpen(false)
+            }} 
+            className='absolute opcaity-0 right-6 top-6 text-2xl'
+          >
+            <i className="ri-arrow-down-wide-line"></i>
+          </h5>
+          <h4 className='text-[#504B38] text-2xl font-semibold'>Find a Trip!</h4>
+          <form onSubmit={submitHandler}>
+            <div className="line absolute h-16 w-1 top-[45%] left-10 bg-gray-900 rounded-full"></div>
+            <input 
+              onClick={() => {
+                setPanelOpen(true)
+                setActiveField('pickup')
+              }}
+              value={pickup}
+              onChange={(e) => {
+                setPickup(e.target.value)
+                fetchSuggestions(e.target.value)
+              }}
+              className='bg-white border borderColor-[#504B38] px-12 py-2 text-lg rounded-lg w-full mt-5' 
+              type="text"  
+              placeholder='Add a pickup Location.'
+            />
+            <input
+              onClick={() => {
+                setPanelOpen(true)
+                setActiveField('destination')
+              }}
+              value={destination}
+              onChange={(e) => {
+                setDestination(e.target.value)
+                fetchSuggestions(e.target.value)
+              }}
+              className='bg-white border px-12 py-2 text-lg rounded-lg w-full mt-3' 
+              type="text"  
+              placeholder='Enter your destination.'
+            />
+          </form>
+        </div>
+        <div ref={panelRef} className='bg-[#FFFDF6] h-0'>
+          <LocationSearchPanel 
+            suggestions={suggestions}
+            handleSuggestionClick={handleSuggestionClick}
+            setPanelOpen={setPanelOpen}
+            setvehiclePanel={setvehiclePanel} 
+          />
+        </div>
       </div>
       <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full px-3 py-10 pt-12 bg-[#FFFDF6]'>
         <VehiclePanel setconfirmRidePanel={setconfirmRidePanel} setvehiclePanel={setvehiclePanel} />
       </div>
       <div ref={confirmRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full px-3 py-6 pt-12 bg-[#FFFDF6]'>
-        < ConfirmedRide setconfirmRidePanel={setconfirmRidePanel} setvehicleFound={setvehicleFound}/>
+        <ConfirmedRide setconfirmRidePanel={setconfirmRidePanel} setvehicleFound={setvehicleFound}/>
       </div>
       <div ref={vehicleFoundRef} className='fixed w-full z-10 bottom-0 translate-y-full px-3 py-6 pt-12 bg-[#FFFDF6]'>
         <LookingForDriver setvehicleFound={setvehicleFound} />
